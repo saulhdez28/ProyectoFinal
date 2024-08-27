@@ -9,10 +9,10 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: zombe green
   m_Shader: {fileID: 4800000, guid: 76374158b4c4e5744b394e9290aae693, type: 3}
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _TEX_ON
   m_InvalidKeywords:
   - _OUTL_ON
-  - _TEX_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -31,7 +31,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 779c8719916a92d43a722795400db45d, type: 3}
+        m_Texture: {fileID: 2800000, guid: 69ed32fdb66dba04f9a85b0abb9c13df, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ToonShade:
@@ -55,7 +55,7 @@ Material:
     - _VertexColor: 0
     m_Colors:
     - _Asymmetry: {r: 0, g: 0.25, b: 0.5, a: 0}
-    - _Color: {r: 0.8, g: 0.8, b: 0.8, a: 1}
+    - _Color: {r: 0.9056604, g: 0.24675778, b: 0.23068698, a: 1}
     - _OutlineColor: {r: 0.1764706, g: 0.11764706, b: 0.05882353, a: 1}
     - _SpecColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_BuildTextureStacks: []
