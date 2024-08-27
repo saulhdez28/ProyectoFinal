@@ -9,13 +9,18 @@ public class ZombieHealthController : MonoBehaviour
     
     private int currentHealth;
 
+    private Animator animator;
+
     void Start()
     {
+        animator = GetComponent<Animator>();
         currentHealth = maxHealth;
     }
 
     public void TakeDamage(int damage)
     {
+        animator.SetBool("isDamaged", true);
+
         currentHealth -= damage;
 
         if (currentHealth <= 0)
@@ -27,6 +32,8 @@ public class ZombieHealthController : MonoBehaviour
     void Die()
     {
         // Aquí va la animación de muerte
+        animator.SetTrigger("Die");
+
         Destroy(gameObject);
     }
 }
