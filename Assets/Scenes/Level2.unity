@@ -563,7 +563,7 @@ GameObject:
   - component: {fileID: 276049490}
   - component: {fileID: 276049489}
   m_Layer: 0
-  m_Name: Zombi Simple 3
+  m_Name: Zombi Agresivo 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -577,13 +577,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 276049487}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.615, y: -5.73, z: -3.53}
+  m_LocalPosition: {x: -3.185, y: -5.73, z: 1.8999999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 653966256}
-  m_Father: {fileID: 1413760256}
-  m_RootOrder: 2
+  m_Father: {fileID: 1506047719}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &276049489
 Animator:
@@ -618,7 +618,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9270398601d6127448900514f006c238, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage: 10
+  attackDamage: 20
   timeBetweenAttacks: 1.5
   attackRange: 1
 --- !u!114 &276049491
@@ -1375,7 +1375,7 @@ GameObject:
   - component: {fileID: 618675809}
   - component: {fileID: 618675808}
   m_Layer: 0
-  m_Name: Zombi Simple 4
+  m_Name: Zombi Agresivo 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1389,13 +1389,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 618675806}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.037, y: -2.9, z: -9.13}
+  m_LocalPosition: {x: 1.467, y: -2.9, z: -3.7000003}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2037321614}
-  m_Father: {fileID: 1413760256}
-  m_RootOrder: 3
+  m_Father: {fileID: 1506047719}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &618675808
 Animator:
@@ -1430,7 +1430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9270398601d6127448900514f006c238, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage: 10
+  attackDamage: 20
   timeBetweenAttacks: 1.5
   attackRange: 1
 --- !u!114 &618675810
@@ -3081,7 +3081,7 @@ Transform:
   - {fileID: 1663096392}
   - {fileID: 636636683}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1216168839 stripped
 Transform:
@@ -3694,8 +3694,6 @@ Transform:
   m_Children:
   - {fileID: 1270822343}
   - {fileID: 1485272979}
-  - {fileID: 276049488}
-  - {fileID: 618675807}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3915,6 +3913,39 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1807603663753973815, guid: d546eaa275311cd4c8cf23d412780fee, type: 3}
   m_PrefabInstance: {fileID: 2226161406320482880}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1506047718
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1506047719}
+  m_Layer: 0
+  m_Name: Zombies Agresivos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1506047719
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1506047718}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 276049488}
+  - {fileID: 618675807}
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1507948209
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5273,7 +5304,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4665036218820460042, guid: 453c8cea6a6a0e44b8268c1e70cfbda2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.02
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4665036218820460042, guid: 453c8cea6a6a0e44b8268c1e70cfbda2, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5281,7 +5312,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4665036218820460042, guid: 453c8cea6a6a0e44b8268c1e70cfbda2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.86
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4665036218820460042, guid: 453c8cea6a6a0e44b8268c1e70cfbda2, type: 3}
       propertyPath: m_LocalRotation.w
