@@ -98,6 +98,12 @@ namespace PlayerInputsAssetsController
         [Tooltip("Healt Controller of current enemy")]
         private GameObject[] enemyControllers;
 
+        [Tooltip("Current Weapon (1 or 2)")]
+        public GameObject Weapon1;
+        public GameObject Weapon2;
+
+
+
         // cinemachine
         private float _cinemachineTargetYaw;
         private float _cinemachineTargetPitch;
@@ -128,11 +134,17 @@ namespace PlayerInputsAssetsController
 
         //attack
         private int comboCount = 0;
-        private const float comboTimeout = 2f; // time taken to do another combo
+        private const float comboTimeout = 4f; // time taken to do another combo / or cycles taken to do another combo
         private float lastAttackTime = 0f;
         private bool isComboActive = false;
 
         public bool doAttackInRange = false;
+
+        //bullet
+        public bool canShoot = false;
+        public int amountOfBullets = 1;
+        public float WaitForAnotherBulletInSeconds = 10f; //time for another bullet to be in the chamber
+        private bool isCooldownActive = false;
 
 #if ENABLE_INPUT_SYSTEM 
         private PlayerInput _playerInput;
@@ -265,24 +277,27 @@ namespace PlayerInputsAssetsController
         private void HandleStates()
         {
             // State 0: Normal or Fighting
-            print(_input.click);
             if (_input.scrollYFlag == false)
             {
                 _animator.SetInteger(_animIDState, 0);
+                Weapon2.SetActive(false);
                 if (_input.click)
                 {
                     HandleFightingState();
                 }
+                Weapon1.SetActive(true);
             }
             else if (_input.scrollYFlag == true)
             {
-                 _animator.SetInteger(_animIDState, 1);
+                _animator.SetInteger(_animIDState, 1);
+                Weapon1.SetActive(false);
                 if (_input.click)
                 {
                     HandleState1Attack();
                 }
+                Weapon2.SetActive(true);
             }
-            
+
 
 
             // Handle Hit Animation
@@ -290,7 +305,7 @@ namespace PlayerInputsAssetsController
             if (_hit)
             {
                 _animator.SetBool(_animIDHit, true);
-                CancelHitCoroutine();
+                StartCoroutine(CancelHitCoroutine());
             }
         }
 
@@ -301,7 +316,7 @@ namespace PlayerInputsAssetsController
                 if (_input.jump && _speed < 6f)
                 {
                     _animator.SetTrigger(_animIDAttack);
-                    CancelTriggerCoroutine(jumpDamage);
+                    StartCoroutine(CancelTriggerCoroutine(jumpDamage));
                 }
                 else
                 {
@@ -321,35 +336,35 @@ namespace PlayerInputsAssetsController
         private IEnumerator HandleComboState()
         {
             isComboActive = true;
-
             float timeSinceLastAttack = Time.time - lastAttackTime;
+
 
             if (timeSinceLastAttack <= comboTimeout)
             {
                 comboCount++;
+                
             }
-            else
-            {
-                comboCount = 0;
-            }
+
 
             lastAttackTime = Time.time;
 
-            if (comboCount >= 2)
+            if (comboCount >= 4)
             {
                 _animator.SetInteger(_animIDMode, 2);
                 _animator.SetTrigger(_animIDAttack);
                 comboCount = 0;
-                CancelTriggerCoroutine(slashesDamage);
+                timeSinceLastAttack = 0f;
+                lastAttackTime = 0f;
+                StartCoroutine(CancelTriggerCoroutine(slashesDamage));
             }
             else
             {
                 _animator.SetInteger(_animIDMode, 1);
                 _animator.SetTrigger(_animIDAttack);
-                CancelTriggerCoroutine(normalDamage);
+                StartCoroutine(CancelTriggerCoroutine(normalDamage));
             }
 
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1f);
             isComboActive = false;
         }
 
@@ -357,11 +372,52 @@ namespace PlayerInputsAssetsController
         {
             if (_speed < 6f && Grounded && _input.click)
             {
-                _animator.SetInteger(_animIDMode, 1);
-                _animator.SetTrigger(_animIDAttack);
-                CancelTriggerCoroutine(syrengeDamage, 0.1f);
-                
+                if (amountOfBullets > 0 && !isCooldownActive)
+                {
+                    float nextTimeToShoot = 0f;
+
+                    canShoot = false;
+                    _animator.SetInteger(_animIDMode, 1);
+                    _animator.SetTrigger(_animIDAttack);
+                    StartCoroutine(FinishedAnimationRoutine());
+                    if (Time.time >= nextTimeToShoot)
+                    {
+                        nextTimeToShoot = Time.time + 1.5f;
+                        amountOfBullets--;
+                    }
+                }
+                else if (amountOfBullets <= 0 && !isCooldownActive)
+                {
+                    isCooldownActive = true;
+                    canShoot = false;
+                    StartCoroutine(CooldownRoutine());
+                }
+
             }
+            else
+            {
+                _animator.SetInteger(_animIDMode, 0);
+            }
+        }
+
+
+        private IEnumerator FinishedAnimationRoutine()
+        {
+            canShoot = true;
+            
+            yield return new WaitForSeconds(1.01f);
+            canShoot = false;
+            _animator.SetInteger(_animIDMode, 0);
+            _animator.ResetTrigger(_animIDAttack);
+
+        }
+        private IEnumerator CooldownRoutine()
+        {
+            yield return new WaitForSeconds(WaitForAnotherBulletInSeconds);
+
+            amountOfBullets = 3; 
+            isCooldownActive = false;
+            canShoot = false;
         }
 
         private IEnumerator CancelHitCoroutine()

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6648590246790138021}
   - component: {fileID: 6648590246790138020}
   - component: {fileID: 6648590246790138023}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6648590247730828922}
   - component: {fileID: 6648590247730828805}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PlayerFollowCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -141,7 +141,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 40
+    FieldOfView: 50
     OrthographicSize: 10
     NearClipPlane: 0.2
     FarClipPlane: 500

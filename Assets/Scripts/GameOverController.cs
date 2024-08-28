@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameOverController : MonoBehaviour
 {
     [SerializeField]
-    TextMeshProUGUI name;
+    TextMeshProUGUI _name;
 
     [SerializeField]
     TextMeshProUGUI enemies;
@@ -35,7 +35,7 @@ public class GameOverController : MonoBehaviour
 
 
         // Configura los campos de texto
-        name.text = playerName;
+        _name.text = playerName;
         enemies.text = "ZOMBIES DEFEATED: " + enemiesDestroyed;
         medCases.text = " MEDCASES FOUNDED: " + collectables;
     }

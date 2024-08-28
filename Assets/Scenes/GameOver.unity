@@ -462,7 +462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eab3135f6eb5bd141aa6a1613bd4db0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: {fileID: 0}
+  _name: {fileID: 0}
   enemies: {fileID: 0}
   medCases: {fileID: 0}
 --- !u!1 &426141626
