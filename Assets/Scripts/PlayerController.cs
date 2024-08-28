@@ -312,16 +312,13 @@ namespace PlayerInputsAssetsController
         private void HandleFightingState()
         {
             if (_speed < 6 && Grounded && _input.click)
+            { 
+                EnterFightingSubState();   
+            }
+            if (_input.jump && _input.click)
             {
-                if (_input.jump && _speed < 6f)
-                {
-                    _animator.SetTrigger(_animIDAttack);
-                    StartCoroutine(CancelTriggerCoroutine(jumpDamage));
-                }
-                else
-                {
-                    EnterFightingSubState();
-                }
+                _animator.SetTrigger(_animIDAttack);
+                StartCoroutine(CancelTriggerCoroutine(jumpDamage));
             }
         }
 
