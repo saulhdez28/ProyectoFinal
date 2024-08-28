@@ -126,6 +126,7 @@ public class ZombieMovement : MonoBehaviour
     {
         agent.speed = chaseSpeed;
         agent.SetDestination(player.position);
+        animator.SetBool("isRunning", true);
     }
 
     void OnDrawGizmosSelected()
