@@ -4,7 +4,7 @@ public class ZombieAttackController : MonoBehaviour
 {
     [Header("Attack Settings")]
     [SerializeField]
-    private int attackDamage = 10;
+    private int attackDamage = 10; // Daño infligido por el zombie (debería ser 10 si cada corazón es 10 puntos)
 
     [SerializeField]
     private float timeBetweenAttacks = 1.5f;
@@ -29,7 +29,7 @@ public class ZombieAttackController : MonoBehaviour
     {
         if (!hasAttacked && Time.time - lastAttackTime >= timeBetweenAttacks)
         {
-            animator.SetBool("isAttacking", true);
+            animator.SetTrigger("Attack");
             playerHealth.DecreaseHealth(attackDamage);
             hasAttacked = true;
             lastAttackTime = Time.time;
@@ -40,13 +40,12 @@ public class ZombieAttackController : MonoBehaviour
     void ResetAttack()
     {
         hasAttacked = false;
-        animator.SetBool("isAttacking", false);
     }
 
     void OnDrawGizmosSelected()
     {
-        // Dibujar el rango de ataque del zombie (aparece un circulo para simular el rango)
-        Gizmos.color = Color.blue;
+        // Dibujar el rango de ataque del zombie
+        Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 }
