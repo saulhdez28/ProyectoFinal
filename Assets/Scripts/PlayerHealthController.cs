@@ -3,29 +3,51 @@ using UnityEngine;
 public class PlayerHealthController : MonoBehaviour
 {
     [SerializeField]
-    private int maxHealth = 100;
+    private float maxHealth = 100;
 
-    private int currentHealth;
+    private float currentHealth;
 
-    void Start()
+    private void Start()
     {
         currentHealth = maxHealth;
-
     }
-    public void TakeDamage(int damage)
-    {
-        currentHealth -= damage;
-        Debug.Log("Player Health: " + currentHealth); // Imprimir la vida actual del jugador
 
-        if (currentHealth <= 0)
+    public float GetHealth(float value, bool percentage, float factor)
+    {
+        if (percentage)
+        {
+            return (maxHealth * Mathf.Abs(value) / 100.0F) * factor;
+        }
+        else
+        {
+            return Mathf.Abs(value) * factor;
+        }
+    }
+
+    public void DecreaseHealth(float value, bool percentage = false)
+    {
+        currentHealth += GetHealth(value, percentage, -1);
+        if (currentHealth <= 0.0f)
         {
             Die();
         }
     }
 
-    void Die()
+    public void IncreaseHealth(float value, bool percentage = false)
     {
-        Debug.Log("Player has died."); // Imprimir mensaje de muerte
-        Destroy(gameObject);
+        currentHealth += GetHealth(value, percentage, 1);
+        if (currentHealth > 100.0f)
+        {
+            currentHealth = 100.0f;
+        }
+    }
+
+    public void Die()
+    {
+        if (gameObject != null)
+        {
+            Debug.Log("Player has died.");
+            Destroy(gameObject);
+        }
     }
 }

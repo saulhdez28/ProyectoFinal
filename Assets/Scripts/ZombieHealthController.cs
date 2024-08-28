@@ -5,9 +5,9 @@ using UnityEngine;
 public class ZombieHealthController : MonoBehaviour
 {
     [SerializeField] 
-    private int maxHealth = 100;
+    private float maxHealth = 100;
     
-    private int currentHealth;
+    private float currentHealth;
 
     private Animator animator;
 
@@ -17,19 +17,39 @@ public class ZombieHealthController : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    public void TakeDamage(int damage)
+    public float GetHealth(float value, bool percentage, float factor)
+    {
+        if (percentage)
+        {
+            return (maxHealth * Mathf.Abs(value) / 100.0F) * factor;
+        }
+        else
+        {
+            return Mathf.Abs(value) * factor;
+        }
+    }
+
+    public void DecreaseHealth(float value, bool percentage = false)
     {
         animator.SetBool("isDamaged", true);
-
-        currentHealth -= damage;
-
-        if (currentHealth <= 0)
+        currentHealth += GetHealth(value, percentage, -1);
+        if (currentHealth <= 0.0f)
         {
             Die();
         }
     }
 
-    void Die()
+    public void IncreaseHealth(float value, bool percentage = false)
+    {
+        currentHealth += GetHealth(value, percentage, 1);
+        if (currentHealth > 100.0f)
+        {
+            currentHealth = 100.0f;
+        }
+    }
+
+
+    private void Die()
     {
         // Aquí va la animación de muerte
         animator.SetTrigger("Die");
