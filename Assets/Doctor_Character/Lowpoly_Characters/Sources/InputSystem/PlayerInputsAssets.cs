@@ -24,6 +24,7 @@ namespace PlayerInputsAssetsController {
         [Header("Scroll Settings")]
         public float scrollY;
 
+        public bool scrollYFlag;
 
 #if ENABLE_INPUT_SYSTEM
         public void OnMove(InputValue value)
@@ -54,9 +55,17 @@ namespace PlayerInputsAssetsController {
             AttackInput(value.isPressed);
         }
 
-        public void OnScrollY(InputValue value)
+        public void OnMouseScrollY(InputValue value)
         {
             ScrollYInput(value.Get<float>());
+            if (scrollY < 0.0f)
+            {
+                scrollYFlag = true;
+            }
+            else if(scrollY > 0.0f)
+            {
+                scrollYFlag = false;
+            }
         }   
 #endif
 

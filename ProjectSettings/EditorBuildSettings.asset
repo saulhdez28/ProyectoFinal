@@ -4,23 +4,5 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-<<<<<<< Updated upstream
-  m_Scenes:
-  - enabled: 1
-    path: Assets/Scenes/Welcome.unity
-    guid: bdcf4b21badd9ce4f960cb76d38fc6b6
-  - enabled: 1
-    path: Assets/Scenes/Level1.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
-    path: Assets/Scenes/Level2.unity
-    guid: 44ea85f378164634eb1918122ef992cd
-  - enabled: 1
-    path: Assets/Scenes/GameOver.unity
-    guid: 47712b1630f881647b83c07ae41a7dee
-  m_configObjects: {}
-=======
   m_Scenes: []
-  m_configObjects:
-    com.unity.input.settings: {fileID: 11400000, guid: 8ebb690938340cc48b8c5b81171d5e31, type: 2}
->>>>>>> Stashed changes
+  m_configObjects: {}

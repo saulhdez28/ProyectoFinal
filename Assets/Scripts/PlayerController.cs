@@ -128,8 +128,10 @@ namespace PlayerInputsAssetsController
 
         //attack
         private int comboCount = 0;
+        private const float comboTimeout = 2f; // time taken to do another combo
         private float lastAttackTime = 0f;
-        private const float comboTimeout = 2f;
+        private bool isComboActive = false;
+
         public bool doAttackInRange = false;
 
 #if ENABLE_INPUT_SYSTEM 
@@ -263,8 +265,8 @@ namespace PlayerInputsAssetsController
         private void HandleStates()
         {
             // State 0: Normal or Fighting
-            print(_input.scrollY);
-            if (_input.scrollY < 0.0f)
+            print(_input.click);
+            if (_input.scrollYFlag == false)
             {
                 _animator.SetInteger(_animIDState, 0);
                 if (_input.click)
@@ -272,21 +274,15 @@ namespace PlayerInputsAssetsController
                     HandleFightingState();
                 }
             }
-            else if (_input.scrollY > 0.0f)
+            else if (_input.scrollYFlag == true)
             {
                  _animator.SetInteger(_animIDState, 1);
                 if (_input.click)
                 {
                     HandleState1Attack();
                 }
-            }else if (_input.scrollY == 0.0f)
-            {
-                _animator.SetInteger(_animIDState, 0);
-                if (_input.click)
-                {
-                    HandleFightingState();
-                }
             }
+            
 
 
             // Handle Hit Animation
@@ -300,9 +296,9 @@ namespace PlayerInputsAssetsController
 
         private void HandleFightingState()
         {
-            if (_speed < 2 && Grounded && _input.click)
+            if (_speed < 6 && Grounded && _input.click)
             {
-                if (_input.jump && _speed < 1.9f)
+                if (_input.jump && _speed < 6f)
                 {
                     _animator.SetTrigger(_animIDAttack);
                     CancelTriggerCoroutine(jumpDamage);
@@ -316,6 +312,16 @@ namespace PlayerInputsAssetsController
 
         private void EnterFightingSubState()
         {
+            if (!isComboActive)
+            {
+                StartCoroutine(HandleComboState());
+            }
+        }
+
+        private IEnumerator HandleComboState()
+        {
+            isComboActive = true;
+
             float timeSinceLastAttack = Time.time - lastAttackTime;
 
             if (timeSinceLastAttack <= comboTimeout)
@@ -324,7 +330,7 @@ namespace PlayerInputsAssetsController
             }
             else
             {
-                comboCount = 1;
+                comboCount = 0;
             }
 
             lastAttackTime = Time.time;
@@ -341,16 +347,20 @@ namespace PlayerInputsAssetsController
                 _animator.SetInteger(_animIDMode, 1);
                 _animator.SetTrigger(_animIDAttack);
                 CancelTriggerCoroutine(normalDamage);
-
             }
+
+            yield return new WaitForSeconds(2f);
+            isComboActive = false;
         }
 
         private void HandleState1Attack()
         {
-            if (_speed < 0.1f && Grounded && _input.click)
+            if (_speed < 6f && Grounded && _input.click)
             {
+                _animator.SetInteger(_animIDMode, 1);
                 _animator.SetTrigger(_animIDAttack);
-                CancelTriggerCoroutine(syrengeDamage);
+                CancelTriggerCoroutine(syrengeDamage, 0.1f);
+                
             }
         }
 
@@ -361,11 +371,10 @@ namespace PlayerInputsAssetsController
 
         }
 
-        private IEnumerator CancelTriggerCoroutine(float damage)
+        private IEnumerator CancelTriggerCoroutine(float damage, float seconds = 0.3f)
         {
 
-            yield return new WaitForSeconds(0.3F);
-
+            yield return new WaitForSeconds(seconds);
             if (doAttackInRange == true)
             {
                 if (enemyControllers != null)
@@ -459,8 +468,9 @@ namespace PlayerInputsAssetsController
             // update animator if using character
             if (_hasAnimator)
             {
+
                 _animator.SetFloat(_animIDSpeed, _animationBlend);
-                _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
+                _animator.SetFloat(_animIDMotionSpeed, 1);
             }
         }
 
