@@ -29,12 +29,12 @@ public class ZombieAttackController : MonoBehaviour
     {
         if (!hasAttacked && Time.time - lastAttackTime >= timeBetweenAttacks)
         {
-            animator.SetTrigger("Attack");
             playerHealth.DecreaseHealth(attackDamage);
             hasAttacked = true;
             lastAttackTime = Time.time;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
+
     }
 
     void ResetAttack()

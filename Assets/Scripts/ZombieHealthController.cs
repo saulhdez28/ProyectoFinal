@@ -7,7 +7,7 @@ public class ZombieHealthController : MonoBehaviour
     [SerializeField] 
     private float maxHealth = 100;
     
-    private float currentHealth;
+    public float currentHealth;
 
     private Animator animator;
 

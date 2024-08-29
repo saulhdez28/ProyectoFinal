@@ -102,6 +102,8 @@ namespace PlayerInputsAssetsController
         public GameObject Weapon1;
         public GameObject Weapon2;
 
+        //current enemy 
+        private GameObject currentEnemy;  
 
 
         // cinemachine
@@ -200,12 +202,10 @@ namespace PlayerInputsAssetsController
             _fallTimeoutDelta = FallTimeout;
             
             enemyControllers = GameObject.FindGameObjectsWithTag("Enemy");
-
             if (attackEnemy == null)
             {
                 attackEnemy = GetComponent<AttackEnemy>();
             }
-
         }
 
         private void Update()
@@ -220,6 +220,7 @@ namespace PlayerInputsAssetsController
             doAttackInRange = attackEnemy.attacking;
 
             HandleStates();
+            currentEnemy = attackEnemy.enemy;
         }
 
         private void LateUpdate()
@@ -428,22 +429,15 @@ namespace PlayerInputsAssetsController
         {
 
             yield return new WaitForSeconds(seconds);
-            if (doAttackInRange == true)
-            {
-                if (enemyControllers != null)
-                {
-                    foreach (GameObject obj in enemyControllers)
-                    {
-                        if (obj != null)
-                        {
-                            ZombieHealthController healthController = obj.GetComponent<ZombieHealthController>();
 
-                            if (healthController != null)
-                            {
-                                healthController.DecreaseHealth(damage);
-                            }
-                        }
-                    }
+
+            if (doAttackInRange == true && currentEnemy != null)
+            {
+                ZombieHealthController healthController = currentEnemy.GetComponent<ZombieHealthController>();
+
+                if (healthController != null)
+                {
+                    healthController.DecreaseHealth(damage);
                 }
             }
             _animator.SetInteger(_animIDMode, 0);
