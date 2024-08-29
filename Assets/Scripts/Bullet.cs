@@ -7,13 +7,10 @@ public class Bullet : MonoBehaviour
 {
     public float lifeTime = 3;
 
-    private GameObject[] enemyControllers;
-
     private PlayerController playerController;
 
     private void Start()
     {
-        enemyControllers = GameObject.FindGameObjectsWithTag("Enemy");
         if (playerController == null)
         {
             playerController = FindObjectOfType<PlayerController>();
@@ -27,18 +24,17 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        foreach (GameObject obj in enemyControllers)
+   
+        if (collision != null)
         {
-            if (obj != null)
-            {
-                ZombieHealthController healthController = obj.GetComponent<ZombieHealthController>();
+            ZombieHealthController healthController = collision.gameObject.GetComponent<ZombieHealthController>();
 
-                if (healthController != null)
-                {
-                    healthController.DecreaseHealth(playerController.syrengeDamage);
-                }
+            if (healthController != null)
+            {
+                healthController.DecreaseHealth(playerController.syrengeDamage);
             }
         }
+        
         Destroy(gameObject);
     }
 }
