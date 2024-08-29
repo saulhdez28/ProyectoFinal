@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3847610446790037094}
   - component: {fileID: 5317634711164881384}
   - component: {fileID: 1908064266}
+  - component: {fileID: -6061106526286315950}
   m_Layer: 0
   m_Name: Firstaid_2
   m_TagString: Untagged
@@ -112,3 +113,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: {x: 12, y: 200, z: 0}
+--- !u!114 &-6061106526286315950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3343229072912101299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 202d14ecb4627b04b880a10ba2fcf8d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthIncrease: 20
