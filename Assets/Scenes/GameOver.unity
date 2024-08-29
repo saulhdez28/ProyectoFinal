@@ -462,9 +462,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eab3135f6eb5bd141aa6a1613bd4db0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _name: {fileID: 0}
-  enemies: {fileID: 0}
-  medCases: {fileID: 0}
+  _name: {fileID: 132421279}
+  enemies: {fileID: 1833332560}
+  medCases: {fileID: 2063647336}
 --- !u!1 &426141626
 GameObject:
   m_ObjectHideFlags: 0
