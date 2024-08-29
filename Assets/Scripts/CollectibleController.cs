@@ -3,7 +3,8 @@ using UnityEngine;
 public class CollectibleController : MonoBehaviour
 {
     [SerializeField]
-    private int healthIncrease = 20; // Incremento de 20 puntos de salud (2 corazones)
+    // Incremento de 20 puntos de salud (2 corazones)
+    private int healthIncrease = 20; 
 
     private void OnTriggerEnter(Collider other)
     {
@@ -12,11 +13,13 @@ public class CollectibleController : MonoBehaviour
             PlayerHealthController playerHealth = other.GetComponent<PlayerHealthController>();
             if (playerHealth != null)
             {
-                // Verificar si el jugador tiene menos de la salud máxima (por ejemplo, menos de 5 corazones)
+                // Verificar si el jugador tiene menos de la salud máxima
+                //(5 corazones)
                 if (playerHealth.CurrentHealth < playerHealth.MaxHealth)
                 {
                     playerHealth.IncreaseHealth(healthIncrease);
-                    Destroy(gameObject); // Destruye el objeto coleccionable para simular que ha sido recogido
+                    // Destruye el objeto coleccionable para simular que ha sido recogido
+                    Destroy(gameObject); 
                 }
                 else
                 {

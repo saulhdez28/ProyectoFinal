@@ -4,25 +4,24 @@ public class ZombieAttackController : MonoBehaviour
 {
     [Header("Attack Settings")]
     [SerializeField]
-    private int attackDamage = 10; // Daño infligido por el zombie (debería ser 10 si cada corazón es 10 puntos)
+    private int attackDamage = 10; 
 
     [SerializeField]
     private float timeBetweenAttacks = 1.5f;
 
     [SerializeField]
-    private float attackRange = 2f; // Rango de ataque melee
+    private float attackRange = 2f; 
 
     private bool hasAttacked;
     private float lastAttackTime;
 
-    public float AttackRange => attackRange; // Propiedad para acceder al rango de ataque desde ZombieMovement
-
+    public float AttackRange => attackRange; 
     private Animator animator;
 
     void Start()
     {
         animator = GetComponent<Animator>();
-        lastAttackTime = -timeBetweenAttacks; // Para que pueda atacar inmediatamente si está en rango
+        lastAttackTime = -timeBetweenAttacks; 
     }
 
     public void Attack(PlayerHealthController playerHealth)
@@ -44,7 +43,6 @@ public class ZombieAttackController : MonoBehaviour
 
     void OnDrawGizmosSelected()
     {
-        // Dibujar el rango de ataque del zombie
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }

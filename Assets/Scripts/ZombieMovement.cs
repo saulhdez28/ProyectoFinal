@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -24,18 +25,25 @@ public class ZombieMovement : MonoBehaviour
     [SerializeField]
     private float chaseRange = 10f;
 
+    //50%
+    [SerializeField]
+    private float attackProbability = 0.5f;
+
+
     private int currentPatrolIndex;
     private NavMeshAgent agent;
     private bool isWaiting;
     private bool isReturning;
     private ZombieAttackController attackController;
+    private BulletEnemyAttackController bulletEnemyAttackController;
     private Animator animator;
 
     void Start()
     {
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
-        attackController = GetComponent<ZombieAttackController>(); // Obtener el controlador de ataque
+        attackController = GetComponent<ZombieAttackController>();
+        bulletEnemyAttackController = GetComponent<BulletEnemyAttackController>();
         agent.speed = patrolSpeed;
         isReturning = false;
         GoToNextPatrolPoint();
@@ -43,16 +51,29 @@ public class ZombieMovement : MonoBehaviour
 
     void Update()
     {
-        if (player == null) return; // Verificar si el jugador ha sido destruido
+        if (player == null) return;
 
         float distanceToPlayer = Vector3.Distance(player.position, transform.position);
 
-        if (distanceToPlayer < attackController.AttackRange) // Usar el rango de ataque del ZombieAttackController
+        if (distanceToPlayer < attackController.AttackRange)
         {
-            agent.SetDestination(transform.position); // Detener el movimiento
-            attackController.Attack(player.GetComponent<PlayerHealthController>()); // Llamar al método de ataque
+            agent.SetDestination(transform.position);
             animator.SetBool("isAttacking", true);
+
+            // Generar un número aleatorio entre -1 y 1
+            float randomValue = UnityEngine.Random.Range(-1f, 1f);
+
+            if (randomValue < attackProbability)
+            {
+                attackController.Attack(player.GetComponent<PlayerHealthController>());
+            }
+            else if (randomValue > attackProbability && bulletEnemyAttackController != null) 
+            {
+                bulletEnemyAttackController.AttackBullet();
+            }
+            ResetAttackProbability();
         }
+
         else if (distanceToPlayer < chaseRange)
         {
             StopCoroutine(WaitAtPoint());
@@ -78,6 +99,11 @@ public class ZombieMovement : MonoBehaviour
         {
             StartCoroutine(WaitAtPoint());
         }
+    }
+
+    private void ResetAttackProbability()
+    {
+        attackProbability = Random.Range(-1f, 1f); 
     }
 
     void GoToNextPatrolPoint()
@@ -131,7 +157,6 @@ public class ZombieMovement : MonoBehaviour
 
     void OnDrawGizmosSelected()
     {
-        // Dibujar el rango de detección del zombie
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, chaseRange);
     }

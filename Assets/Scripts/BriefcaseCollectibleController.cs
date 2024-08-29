@@ -1,12 +1,12 @@
 using UnityEngine;
-using UnityEngine.SceneManagement; // Necesario para cambiar de escena
+using UnityEngine.SceneManagement; 
 
 public class BriefcaseCollectibleController : MonoBehaviour
 {
     [SerializeField]
-    private int briefcaseCountToLevelUp = 3; // Número de maletines necesarios para cambiar de escena
+    private int briefcaseCountToLevelUp = 3; 
 
-    private static int briefcasesCollected = 0; // Contador estático para mantener la cuenta a través de múltiples instancias
+    private static int briefcasesCollected = 0; 
 
     private void OnTriggerEnter(Collider other)
     {
@@ -16,18 +16,17 @@ public class BriefcaseCollectibleController : MonoBehaviour
 
             Debug.Log("Maletines recogidos: " + briefcasesCollected);
             StateManager.Instance.setCollectables();
-            Destroy(gameObject); // Destruye el maletín una vez recogido
+            Destroy(gameObject); 
 
             if (briefcasesCollected >= briefcaseCountToLevelUp)
             {
-                LoadLevel2(); // Cambia a la escena de Level 2
+                LoadLevel2(); 
             }
         }
     }
 
     private void LoadLevel2()
     {
-        // Asegúrate de que la escena "Level 2" esté incluida en las configuraciones de construcción (Build Settings)
         LevelManager.Instance.NextScene();
     }
 }

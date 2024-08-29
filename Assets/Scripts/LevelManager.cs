@@ -13,19 +13,24 @@ public class LevelManager : MonoState<LevelManager>
     }
     public void FirstScene()
     {
-        if (SceneManager.GetActiveScene().buildIndex == 0) //si estoy en la misma escena
+        //si estoy en la misma escena
+        if (SceneManager.GetActiveScene().buildIndex == 0) 
         {
-            return; //Salgase no haga nada
+            //Salgase no haga nada
+            return; 
         }
-        SceneManager.LoadScene(0); //Esta es la primera escena
+        //Esta es la primera escena
+        SceneManager.LoadScene(0); 
     }
     public void LastScene()
     {
-        if (SceneManager.GetActiveScene().buildIndex == sceneCount) // Esto me dice si estoy en la ultima escena no cargue por que ya estoy ahi
+        // Esto me dice si estoy en la ultima escena no cargue por que ya estoy ahi
+        if (SceneManager.GetActiveScene().buildIndex == sceneCount) 
         {
             return;
         }
-        SceneManager.LoadScene(sceneCount); // si no carguela
+        // si no carguela
+        SceneManager.LoadScene(sceneCount); 
     }
 
     public void NextScene()

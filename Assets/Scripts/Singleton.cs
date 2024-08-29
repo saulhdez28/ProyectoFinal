@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Singleton<T> : MonoBehaviour //Este T lo que le dice es que es generico
+public abstract class Singleton<T> : MonoBehaviour
+    //Este T lo que le dice es que es generico
     where T : Component
 {
     static Singleton<T> _instance;
