@@ -5,8 +5,8 @@ using UnityEngine;
 public class StateManager : Singleton<StateManager>
 {
     string _name;
-    int _enemiesDestroyed = 0;
-    int _collectables = 0;
+    public int _enemiesDestroyed = 0;
+    public int _collectables = 0;
 
     public string getName()
     {

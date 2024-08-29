@@ -51,4 +51,14 @@ public class LevelManager : MonoState<LevelManager>
         }
         SceneManager.LoadScene(currentScene - 1);
     }
+
+    public void GameOver()
+    {
+        if (SceneManager.GetActiveScene().buildIndex == sceneCount)
+        {
+            return;
+        }
+        SceneManager.LoadScene(3);
+    }
+
 }

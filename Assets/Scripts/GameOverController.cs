@@ -17,9 +17,9 @@ public class GameOverController : MonoBehaviour
     public void RePlay()
     {
         //StateManager.Instance.setName(textbox.text);
-        LevelManager.Instance.FirstScene();
-        StateManager.Instance.setEnemiesDestroyed(0);
         StateManager.Instance.setCollectables(0);
+        StateManager.Instance.setEnemiesDestroyed(0);
+        LevelManager.Instance.FirstScene();
     }
 
     void Start()

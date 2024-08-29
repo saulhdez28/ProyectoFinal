@@ -8,12 +8,10 @@ public class PlayerHealthController : MonoBehaviour
 
     private float currentHealth;
 
-    // Asigna en el inspector las imágenes de los corazones
-    public Image[] hearts; // Los íconos de corazones
+    public Image[] hearts; 
     public Sprite fullHeart;
     public Sprite emptyHeart;
 
-    // Propiedades públicas para acceder a la salud actual y máxima
     public float CurrentHealth => currentHealth;
     public float MaxHealth => maxHealth;
 
@@ -34,7 +32,7 @@ public class PlayerHealthController : MonoBehaviour
         currentHealth -= CalculateHealth(value, percentage, 1);
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
-        UpdateHealthUI(); // Actualizar la UI de corazones
+        UpdateHealthUI(); 
 
         if (currentHealth <= 0.0f)
         {
@@ -46,13 +44,13 @@ public class PlayerHealthController : MonoBehaviour
     {
         currentHealth += CalculateHealth(value, percentage, 1);
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-        UpdateHealthUI(); // Asegúrate de que esta línea esté presente para actualizar la UI
+        UpdateHealthUI(); 
     }
 
 
     private void UpdateHealthUI()
     {
-        // Asumiendo que cada corazón representa 10 puntos de salud
+        //  10 puntos de salud
         int healthPerHeart = (int)(maxHealth / hearts.Length);
 
         for (int i = 0; i < hearts.Length; i++)
@@ -72,9 +70,9 @@ public class PlayerHealthController : MonoBehaviour
     {
         if (gameObject != null)
         {
+            LevelManager.Instance.GameOver();
             Debug.Log("Player has died.");
             Destroy(gameObject);
-            LevelManager.Instance.LastScene();
         }
     }
 }
