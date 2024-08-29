@@ -74,6 +74,7 @@ public class PlayerHealthController : MonoBehaviour
         {
             Debug.Log("Player has died.");
             Destroy(gameObject);
+            LevelManager.Instance.LastScene();
         }
     }
 }

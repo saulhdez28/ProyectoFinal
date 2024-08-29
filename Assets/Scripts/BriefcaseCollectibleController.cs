@@ -15,7 +15,7 @@ public class BriefcaseCollectibleController : MonoBehaviour
             briefcasesCollected++;
 
             Debug.Log("Maletines recogidos: " + briefcasesCollected);
-
+            StateManager.Instance.setCollectables();
             Destroy(gameObject); // Destruye el maletín una vez recogido
 
             if (briefcasesCollected >= briefcaseCountToLevelUp)
@@ -28,6 +28,6 @@ public class BriefcaseCollectibleController : MonoBehaviour
     private void LoadLevel2()
     {
         // Asegúrate de que la escena "Level 2" esté incluida en las configuraciones de construcción (Build Settings)
-        SceneManager.LoadScene("Level2");
+        LevelManager.Instance.NextScene();
     }
 }

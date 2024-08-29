@@ -53,7 +53,7 @@ public class ZombieHealthController : MonoBehaviour
     {
         // Aquí va la animación de muerte
         animator.SetTrigger("Die");
-
+        StateManager.Instance.setEnemiesDestroyed();
         Destroy(gameObject);
     }
 }
